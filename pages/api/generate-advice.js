@@ -1,5 +1,12 @@
 // pages/api/generate-advice.js
 import { getStoryblokApi } from "@storyblok/react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL;
+if (!GEMINI_API_KEY || !GEMINI_MODEL) {
+  throw new Error('GEMINI_API_KEY and GEMINI_MODEL environment variables must be set.');
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -45,13 +52,16 @@ export default async function handler(req, res) {
     megaPrompt += `Now, based on these rules and examples, provide advice for the following real user query:\n`;
     megaPrompt += `User: "${userQuery}"\nAI:`;
     
-    console.log("--- Generated Mega Prompt ---");
-    console.log(megaPrompt);
-    console.log("---------------------------------");
-
-
     // Step C: Send request to AI api
-    const aiApiResponse = "This is a temporary AI response, but the data for it has now been taken from Storyblok!";
+    console.log("Sending prompt to Google Gemini AI...");
+
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
+    const result = await model.generateContent(megaPrompt);
+    const response = await result.response;
+    const aiApiResponse = response.text();
+
+    console.log("Received advice from AI:", aiApiResponse);
   
     res.status(200).json({ advice: aiApiResponse });
 
