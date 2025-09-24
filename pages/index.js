@@ -103,13 +103,12 @@ export default function Home() {
           />
 
           <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Thinking...' : 'Get advice'}
+            {isLoading ? <div className="spinner-in-button"></div> : 'Get advice'}
           </button>
         </form>
 
         {/* --- Output area for the result --- */}
         <div className="result-area">
-          {isLoading && <p>Loading...</p>}
           {error && <p className="error">Error: {error}</p>}
           {aiAdvice && (
             <div className="advice-card">
@@ -127,7 +126,7 @@ export default function Home() {
                     </div>
                   </>
                 )}
-                {feedbackStatus === 'sending' && <p>Sending feedback...</p>}
+                {feedbackStatus === 'sending' && <div className="spinner"></div>}
                 {feedbackStatus === 'success' && <p className="feedback-success">Thank you for your feedback!</p>}
                 {feedbackStatus === 'error' && <p className="error">Error: {feedbackError}</p>}
               </div>
