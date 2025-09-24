@@ -75,6 +75,9 @@ export default function Home() {
       <Head>
         <title>AI Collective Mind</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
       </Head>
       <main>
         <h1 className="title">AI Collective Mind</h1>
@@ -132,61 +135,6 @@ export default function Home() {
           )}
         </div>
       </main>
-
-      {/* --- Styles --- */}
-      <style jsx>{`
-        /* Existing styles remain the same */
-        .container { min-height: 100vh; padding: 0 0.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        main { padding: 5rem 0; flex: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 600px; }
-        .title { margin: 0; line-height: 1.15; font-size: 4rem; text-align: center; }
-        .description { text-align: center; line-height: 1.5; font-size: 1.5rem; color: #555; }
-        .main-form { width: 100%; display: flex; flex-direction: column; margin-top: 2rem; }
-        label { margin-top: 1rem; margin-bottom: 0.5rem; font-weight: bold; }
-        input, textarea { padding: 0.75rem; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; font-family: inherit; }
-        button { margin-top: 1.5rem; padding: 1rem; font-size: 1.2rem; font-weight: bold; color: white; background-color: #0070f3; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; }
-        button:hover { background-color: #005bb5; }
-        button:disabled { background-color: #ccc; cursor: not-allowed; }
-        .result-area { margin-top: 2rem; width: 100%; min-height: 100px; }
-        .error { color: red; }
-        .advice-card { padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; }
-
-        /* --- For feedback --- */
-        .feedback-section {
-          margin-top: 1.5rem;
-          border-top: 1px solid #eee;
-          padding-top: 1rem;
-          text-align: center;
-        }
-        .feedback-buttons {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          margin-top: 0.5rem;
-        }
-        .feedback-button {
-          padding: 0.5rem 1rem;
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: opacity 0.2s;
-        }
-        .feedback-button:hover {
-          opacity: 0.8;
-        }
-        .good {
-          background-color: #28a745;
-        }
-        .bad {
-          background-color: #dc3545;
-        }
-        .feedback-success {
-          color: #28a745;
-          font-weight: bold;
-        }
-      `}</style>
     </div>
   );
 }
