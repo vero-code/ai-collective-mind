@@ -165,6 +165,8 @@ button:disabled {
   border-top-color: #4f46e5;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin: 0 auto;
+  display: block;
 }
 
 /* Spinner for main button */
