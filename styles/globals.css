@@ -177,3 +177,28 @@ button:disabled {
     transform: rotate(360deg);
   }
 }
+
+/* --- Result area for "empty state" --- */
+.empty-state {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  color: #4a5568;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.empty-state-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.empty-state h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+.empty-state p {
+  margin: 0;
+  line-height: 1.6;
+}

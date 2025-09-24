@@ -109,6 +109,13 @@ export default function Home() {
 
         {/* --- Output area for the result --- */}
         <div className="result-area">
+          {!isLoading && !error && !aiAdvice && (
+            <div className="empty-state">
+              <span className="empty-state-icon">🧠</span>
+              <h2>Your AI-powered advice will appear here</h2>
+              <p>Start by describing your situation in the form above and click 'Get advice' to see the magic happen.</p>
+            </div>
+          )}
           {error && <p className="error">Error: {error}</p>}
           {aiAdvice && (
             <div className="advice-card">
