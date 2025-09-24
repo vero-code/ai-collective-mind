@@ -70,19 +70,24 @@ label {
   color: #2d3748;
 }
 
-input, textarea {
+input, textarea, select {
   padding: 0.75rem 1rem;
   border-radius: 8px;
   border: 1px solid #cbd5e0;
   font-size: 1rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: white;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: #4f46e5;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+select:hover {
+  cursor: pointer;
 }
 
 button {

@@ -1,5 +1,5 @@
 // pages/api/generate-advice.js
-import { getStoryblokApi } from "@storyblok/react";
+import StoryblokClient from "storyblok-js-client";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default async function handler(req, res) {
@@ -20,16 +20,20 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'User query and situation category are required.' });
     }
 
-    const storyblokApi = getStoryblokApi();
+    const storyblokClient = new StoryblokClient({
+      accessToken: process.env.STORYBLOK_ACCESS_TOKEN
+    });
 
-    // STEP A: Fetch the base AI settings from Storyblok
-    console.log("Fetching 'ai-core-settings' from Storyblok...");
-    const { data: coreSettingsData } = await storyblokApi.get('cdn/stories/ai-core-settings', {
+    // STEP A: Fetch the AI settings for the dynamic category from Storyblok
+    const categorySlug = situationCategory;
+    console.log(`Fetching settings for category slug: "${categorySlug}" from Storyblok...`);
+
+    const { data: coreSettingsData } = await storyblokClient.get(`cdn/stories/${categorySlug}`, { 
       version: 'published',
     });
 
     if (!coreSettingsData || !coreSettingsData.story) {
-        return res.status(404).json({ message: 'AI core settings not found in Storyblok.' });
+      return res.status(404).json({ message: `AI settings for category '${categorySlug}' not found. Make sure it's published.` });
     }
     const storyblokContent = coreSettingsData.story.content;
 
@@ -45,8 +49,7 @@ export default async function handler(req, res) {
     });
 
     // STEP B2: Fetch recent bad feedback to learn from it
-    console.log("Fetching recent bad feedback from Storyblok...");
-    const { data: feedbackData } = await storyblokApi.get('cdn/stories', {
+    const { data: feedbackData } = await storyblokClient.get('cdn/stories', {
       starts_with: 'feedback-',
       'filter_query[rating][in]': 'bad',
       sort_by: 'created_at:desc',
@@ -71,7 +74,7 @@ export default async function handler(req, res) {
     megaPrompt += `User: "${userQuery}"\nAI:`;
     
     // STEP C: Send the complete prompt to the Gemini API
-    console.log("Sending final prompt to Google Gemini AI...");
+    console.log("Sending final prompt to Google Gemini AI...", megaPrompt);
 
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });

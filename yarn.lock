@@ -606,6 +606,11 @@ storyblok-js-client@^5.14.2:
   resolved "https://registry.npmjs.org/storyblok-js-client/-/storyblok-js-client-5.14.4.tgz"
   integrity sha512-9yY33tvfO3Cbe25h/l6K0T3IxJeOOyGl/pCwsd55woT0ZEBhIiEZoMumpRsyLjD5AedW9KXLbLjMXhHazkepCA==
 
+storyblok-js-client@^7.1.4:
+  version "7.1.4"
+  resolved "https://registry.npmjs.org/storyblok-js-client/-/storyblok-js-client-7.1.4.tgz"
+  integrity sha512-8U/l4HcWBhyurjOYh9xlhQ+TLN48DxBovzIXwXArbH0muJx/kqYlU/XHnwpmGZJuxTRgRdhWGjpZkthpXpYeaw==
+
 styled-jsx@5.0.7:
   version "5.0.7"
   resolved "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.0.7.tgz"

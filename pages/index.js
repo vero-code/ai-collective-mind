@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Head from "next/head";
+import { getStoryblokApi } from "@storyblok/react";
 
-export default function Home() {
+export default function Home({ categories }) {
 
   // --- State for Advice Generation ---
+  const [category, setCategory] = useState(categories[0]?.slug || '');
   const [userQuery, setUserQuery] = useState('');
-  const [category, setCategory] = useState('Conflict with the boss');
   const [aiAdvice, setAiAdvice] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -85,12 +86,17 @@ export default function Home() {
 
         <form onSubmit={handleSubmit} className="main-form">
           <label htmlFor="category">Problem category:</label>
-          <input
-            id="category"
-            type="text"
-            value={category}
+          <select 
+            id="category" 
+            value={category} 
             onChange={(e) => setCategory(e.target.value)}
-          />
+          >
+            {categories.map((cat) => (
+              <option key={cat.slug} value={cat.slug}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
 
           <label htmlFor="userQuery">Describe your situation:</label>
           <textarea
@@ -113,7 +119,7 @@ export default function Home() {
             <div className="empty-state">
               <span className="empty-state-icon">🧠</span>
               <h2>Your AI-powered advice will appear here</h2>
-              <p>Start by describing your situation in the form above and click 'Get advice' to see the magic happen.</p>
+              <p>Start by selecting the problem category and describing your situation in the form above and click 'Get advice' to see the magic happen.</p>
             </div>
           )}
           {error && <p className="error">Error: {error}</p>}
@@ -143,4 +149,38 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+// --- To load categories ---
+export async function getStaticProps() {
+  const storyblokApi = getStoryblokApi();
+  let categories = [];
+
+  try {
+    const { data } = await storyblokApi.get('cdn/stories', {
+      filter_query: {
+        component: {
+          in: 'AIPrompt',
+        },
+      },
+      version: 'published',
+    });
+
+    if (data.stories) {
+      categories = data.stories.map(story => {
+        return {
+          name: story.content.situation_category || story.name,
+          slug: story.slug,
+        };
+      });
+    }
+  } catch (error) {
+    console.error("Failed to fetch categories from Storyblok:", error);
+  }
+
+  return {
+    props: {
+      categories: categories,
+    },
+  };
 }
