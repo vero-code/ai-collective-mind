@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from "next/head";
 import { getStoryblokApi } from "@storyblok/react";
+import ReactMarkdown from 'react-markdown';
 
 export default function Home({ categories }) {
 
@@ -87,8 +88,8 @@ export default function Home({ categories }) {
         <form onSubmit={handleSubmit} className="main-form">
           <label htmlFor="category">Problem category:</label>
           <select 
-            id="category" 
-            value={category} 
+            id="category"
+            value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
             {categories.map((cat) => (
@@ -126,7 +127,9 @@ export default function Home({ categories }) {
           {aiAdvice && (
             <div className="advice-card">
               <h2>Your advice:</h2>
-              <p>{aiAdvice}</p>
+              <div className="markdown-content">
+                <ReactMarkdown>{aiAdvice}</ReactMarkdown>
+              </div>
 
               {/* --- Feedback section --- */}
               <div className="feedback-section">
