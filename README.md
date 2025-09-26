@@ -8,9 +8,17 @@
 
 **AI Collective Mind** is a web application featuring an intelligent advisor that learns and adapts from real-user feedback. Instead of providing generic advice, it leverages a dynamic knowledge base powered by Storyblok and a sophisticated AI model (Google Gemini) to offer pragmatic, strategic solutions to complex real-world problems.
 
+🎥 [Video Walkthrough](https://youtu.be/uyTvdjPdzsk)
+
+## System Diagrams
+
+| Architecture Overview | Storyblok Content |
+|--|--|
+| ![Project Architecture](./docs/project-architecture.png) | ![Storyblok Content](./docs/storyblok-content-model.png) |
+
 ## The Core Idea: "Live Learning"
 
-The project's key innovation is its "live learning" mechanism, which simulates Reinforcement Learning from Human Feedback (RLHF) in real-time:
+The project's key innovation is its "live learning" mechanism, which simulates **Reinforcement Learning from Human Feedback (RLHF)** in real-time:
 
 1.  **Initial Context:** The AI is given a "persona" and base rules stored as components in Storyblok.
     
